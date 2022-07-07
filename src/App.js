@@ -16,6 +16,11 @@ function App() {
         >
           Learn React
         </a>
+        <p
+          data-testid="home-initial-message"
+        >
+          Digite algum termo de pesquisa ou escolha uma categoria.
+        </p>
       </header>
     </div>
   );
