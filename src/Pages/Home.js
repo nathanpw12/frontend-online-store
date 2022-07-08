@@ -19,6 +19,11 @@ class Home extends React.Component {
       <div>
         {redirect ? <Redirect to="/cart" /> : ''}
         <h1>Home Page</h1>
+        <p
+          data-testid="home-initial-message"
+        >
+          Digite algum termo de pesquisa ou escolha uma categoria.
+        </p>
         <button
           data-testid="shopping-cart-button"
           type="button"
