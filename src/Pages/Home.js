@@ -1,12 +1,21 @@
 import React from 'react';
 import { Redirect } from 'react-router-dom';
 
+const { getCategories } = require('../services/api');
+
 class Home extends React.Component {
   constructor() {
     super();
     this.state = {
       redirect: false,
+      didMount: false,
+      categories: [],
     };
+  }
+
+  componentDidMount() {
+    getCategories()
+      .then((response) => this.setState({ didMount: true, categories: response }));
   }
 
   handleredirect = () => {
@@ -14,7 +23,18 @@ class Home extends React.Component {
   }
 
   render() {
-    const { redirect } = this.state;
+    const { redirect, didMount, categories } = this.state;
+    const categoriesList = (
+      categories.map((category, index) => (
+        <div key={ index }>
+          <label htmlFor={ category.name } data-testid="category">
+            <input type="radio" id={ category.name } />
+            { category.name }
+          </label>
+        </div>
+      ))
+    );
+
     return (
       <div>
         {redirect ? <Redirect to="/cart" /> : ''}
@@ -31,6 +51,7 @@ class Home extends React.Component {
         >
           Carrinho
         </button>
+        { didMount ? categoriesList : '' }
       </div>
     );
   }
